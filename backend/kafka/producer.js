@@ -18,9 +18,10 @@ class Producer {
     produce = async function (req, res) {
         const producer = kafka.producer({ maxMessageBytes: 5000000 });
         await producer.connect();
-
+        const filePath = path.resolve() + "/library/videos/" + req.body.name
+        console.log(filePath)
         const ffmpegProcess = spawn("ffmpeg", [
-            "-i", path.resolve(req.body.name),
+            "-i",filePath,
             "-c:a", "copy",
             "-c:v", "copy",
             "-movflags", "frag_keyframe+empty_moov+default_base_moof",
@@ -30,7 +31,6 @@ class Producer {
             "-f", "hls",
             `./video/${req.body.name.split('.')[0]}.m3u8`
         ]);
-
         ffmpegProcess.on("close", async (code) => {
             if (code === 0) {
                 await new Promise(resolve => setTimeout(resolve, 2000));
@@ -60,7 +60,6 @@ class Producer {
 
                     try {
                         const fragmentData = fs.readFileSync(fragmentPath);
-                        const part = this.calculatePartition(parseInt(req.body.id));
                         const key = { key: this.createSegmentKey(req.body.name.split('.')[0], index) };
                         await producer.send({
                             topic: "test-streaming",

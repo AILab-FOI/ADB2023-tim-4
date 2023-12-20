@@ -9,8 +9,11 @@
   "dependencies": {
     "express": "^4.17.1",
     "cors" : "^2.8.5",
+    "stream" : "^0.0.2",
     "kafkajs" : "^2.2.4",
-    "mp4box" : "^0.5.2"   
+    "stream-buffers": "^3.0.2" ,
+    "mp4box" : "^0.5.2",
+    "sqlite3" : "^5.1.6"   
   },
   "keywords": [],
   "author": "",

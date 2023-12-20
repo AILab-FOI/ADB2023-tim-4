@@ -2,6 +2,8 @@ const express = require('express')
 const cors = require('cors');
 const Producer = require('./kafka/producer');
 const Consumer = require('./kafka/consumer');
+const RestVideo = require("./service/restVideo.js");
+const restVideo = new RestVideo();
 const producer = new Producer()
 const consumer = new Consumer()
 const app = express()
@@ -33,6 +35,14 @@ app.post('/produce',async(req,res)=>{
   res.setHeader("Content-type", "application/json");
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.send({ message: "producing" });
+})
+
+app.get('/videos', (req, res) => {
+  restVideo.getVideos(req, res);
+})
+
+app.get('/videos/:id', (req, res) => {
+  restVideo.getVideoById(req, res);
 })
 
 app.get('/hlsPlaylist/', async (req, res) => {
