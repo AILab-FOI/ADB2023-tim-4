@@ -1,7 +1,26 @@
-import { globalVideos } from "../video/global-videos";
+import SwiperContainer from "../shared/swiper/SwiperContainer";
+import VideoCard from "../video/VideoCard";
+import { globalVideos } from "../../services/video/global-videos";
 
 export default function HomePage() {
   const videos = globalVideos;
+
+  function createSwiperSlideElements() {
+    return videos.map((video) => ({
+      id: video.id,
+      component: (
+        <VideoCard
+          key={video.id}
+          video={video}
+          imageClass={
+            "rounded-tl rounded-tr object-cover w-full h-[240px] flex"
+          }
+          videoNameClass={"border-b border-x rounded-bl rounded-br p-5"}
+          wrapperClass={"w-[540px] flex flex-col"}
+        />
+      ),
+    }));
+  }
 
   return (
     <div>
@@ -12,6 +31,9 @@ export default function HomePage() {
       <p className="text-center mb-12">
         Click on any video to start streaming it!
       </p>
+      <div className="w-[1170px] max-w-full mx-auto">
+        <SwiperContainer swiperSlideElements={createSwiperSlideElements()} />
+      </div>
     </div>
   );
 }
