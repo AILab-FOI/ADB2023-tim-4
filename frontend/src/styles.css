@@ -1,0 +1,11 @@
+/* You can add global styles to this file, and also import other style files */
+html,
+body {
+  min-height: 100vh;
+  font-family: "Inter", sans-serif;
+  font-family: "Open Sans", sans-serif;
+}
+
+.font-custom--kalnia {
+  font-family: "Kalnia", serif;
+}

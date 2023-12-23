@@ -1,3 +1,21 @@
+# Videos
+*.mp4
+
+## React
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# Testing
+/coverage
+
+# Production
+/build
+
+# Misc
+.DS_Store
+
 # Logs
 logs
 *.log
