@@ -1,9 +1,14 @@
+import { fetchVideos } from "../../services/video/fetchVideos";
 import SwiperContainer from "../shared/swiper/SwiperContainer";
 import VideoCard from "../video/VideoCard";
-import { globalVideos } from "../../services/video/global-videos";
+import { useEffect, useState } from "react";
 
 export default function HomePage() {
-  const videos = globalVideos;
+  const [videos, setVideos] = useState([]);
+
+  useEffect(() => {
+    (async () => setVideos(await fetchVideos()))();
+  }, []);
 
   function createSwiperSlideElements() {
     return videos.map((video) => ({

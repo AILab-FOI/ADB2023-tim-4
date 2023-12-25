@@ -3,16 +3,18 @@ import OtherVideosContainer from "./OtherVideosContainer";
 import { useParams, useLocation } from "react-router-dom";
 import queryString from "query-string";
 import Hls from "hls.js";
-import { useEffect } from "react";
-import { globalVideos } from "../../services/video/global-videos";
+import { useEffect, useState } from "react";
+import { fetchVideos } from "../../services/video/fetchVideos";
 
 export default function VideoPage() {
   const { name } = useParams();
   const video = queryString.parse(useLocation().search);
-  const otherVideos = globalVideos;
+  const [otherVideos, setOtherVideos] = useState([]);
   const hlsPlaylistUrl = "http://localhost:3000/hlsPlaylist";
 
-  console.log(video);
+  useEffect(() => {
+    (async () => setOtherVideos(await fetchVideos()))();
+  }, []);
 
   useEffect(() => {
     const hls = new Hls();
