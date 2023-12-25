@@ -37,7 +37,15 @@ export default function HomePage() {
         Click on any video to start streaming it!
       </p>
       <div className="w-[1170px] max-w-full mx-auto">
-        <SwiperContainer swiperSlideElements={createSwiperSlideElements()} />
+        <div className="h-[305px]">
+          {videos.length > 0 ? (
+            <SwiperContainer
+              swiperSlideElements={createSwiperSlideElements()}
+            />
+          ) : (
+            ""
+          )}
+        </div>
       </div>
     </div>
   );
