@@ -19,7 +19,7 @@ export default function VideoPage() {
   useEffect(() => {
     const hls = new Hls();
     const videoTag = document.getElementById("my-video");
-    const url = hlsPlaylistUrl + "?name=" + video.name;
+    const url = hlsPlaylistUrl + "?name=" + video.videoPath;
     if (Hls.isSupported()) {
       hls.loadSource(url);
       hls.attachMedia(videoTag);

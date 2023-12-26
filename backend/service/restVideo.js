@@ -2,6 +2,17 @@ const VideoDao = require("./videoDAO.js");
 
 class RestVideo {
 
+getContent = async function () {
+    let vDao = new VideoDao();
+    try {
+        const videos = await vDao.fetchAll();
+        return JSON.stringify(videos);
+    } catch (error) {
+        console.error("Error fetching videos:", error);
+        throw error; // Optional: Rethrow the error if needed
+    }
+}
+
     getVideos= function (request, response) {
         response.type("application/json");
         response.status(200);
@@ -10,6 +21,8 @@ class RestVideo {
             response.send(JSON.stringify(videos));
         });
     }
+
+
     getVideoById = function (request, response) {
 
         response.type("application/json");

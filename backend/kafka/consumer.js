@@ -8,7 +8,7 @@ class Consumer {
       brokers: ["localhost:9092"],
     });
   }
-  async consume(req, res) {
+  async consume() {
     const consumer = this.kafka.consumer({ groupId: this.groupId });
 
     try {

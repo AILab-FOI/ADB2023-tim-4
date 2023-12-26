@@ -13,7 +13,8 @@
     "kafkajs" : "^2.2.4",
     "stream-buffers": "^3.0.2" ,
     "mp4box" : "^0.5.2",
-    "sqlite3" : "^5.1.6"   
+    "sqlite3" : "^5.1.6",
+    "util" : "^0.12.5" 
   },
   "keywords": [],
   "author": "",

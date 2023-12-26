@@ -18,7 +18,7 @@ var mes = [];
 
 app.post('/produce',async(req,res)=>{
   producer.produce(req,res)
-  const cons = await consumer.consume(req,res);
+  const cons = await consumer.consume();
   cons.run({
     eachMessage: ({message }) => {
       console.log({
@@ -65,19 +65,44 @@ app.get('/:segment', async (req, res) => {
   if(message)
   {
     const buf_array = message.value;
-
     const buffer = Buffer.from(buf_array);
-
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Content-Length', buffer.length);
     res.setHeader('Content-Type', 'video/mp4');
-
     res.end(buffer);
   } else {
     res.status(404).send('Segment not found');
   }
 });
 
+async function produceVideo(name)
+{
+  producer.produce(name)
+  const cons = await consumer.consume();
+  cons.run({
+    eachMessage: ({message }) => {
+      console.log({
+        value: message.value,
+        key: JSON.parse(message.key),
+      });
+      const new_message = Object.assign({}, message);
+      mes.push(new_message);
+    },
+  });
+}
+
+async function produceAllContent()
+{
+  var result = await restVideo.getContent();
+  var videos = JSON.parse(result);
+  videos.forEach(async function(item) {
+  await produceVideo(item.videoPath)
+  })
+  console.log("Content produced")
+}
+
+
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
+    produceAllContent();
   })
