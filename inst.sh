@@ -13,12 +13,6 @@ SERVER_PROPERTIES_FILE="./Projekt/kafka_2.12-3.6.1/config/server.properties"
 echo "message.max.bytes=10485760" >> "$SERVER_PROPERTIES_FILE"
 echo "max.request.size=10485760" >> "$SERVER_PROPERTIES_FILE"
 
-gnome-terminal --tab --title="Zookeeper" -- bash -c "./Projekt/kafka_2.12-3.6.1/bin/zookeeper-server-start.sh ./Projekt/kafka_2.12-3.6.1/config/zookeeper.properties; exec bash"
-
-sleep 15
-
-gnome-terminal --tab --title="Kafka" -- bash -c "./Projekt/kafka_2.12-3.6.1/bin/kafka-server-start.sh ./Projekt/kafka_2.12-3.6.1/config/server.properties; exec bash"
-
 URL2="https://github.com/AILab-FOI/ADB2023-tim-4"
 
 sudo apt update
@@ -26,12 +20,15 @@ sudo apt install nodejs
 sudo apt install npm
 sudo apt install default-jdk
 sudo apt install python3-pip
-sudo pip3 install --upgrade yt-dlp    #ovo je potrebno za mint jer snap naredba ne postoji na ubuntu
-sudo snap install yt-dlp  # ovo je radilo na ubuntu
-sudo apt install yt-dlp
 sudo apt-get install ffmpeg
 sudo apt-get install git
 sudo pip install gdown
+
+gnome-terminal --tab --title="Zookeeper" -- bash -c "./Projekt/kafka_2.12-3.6.1/bin/zookeeper-server-start.sh ./Projekt/kafka_2.12-3.6.1/config/zookeeper.properties; exec bash"
+
+sleep 15
+
+gnome-terminal --tab --title="Kafka" -- bash -c "./Projekt/kafka_2.12-3.6.1/bin/kafka-server-start.sh ./Projekt/kafka_2.12-3.6.1/config/server.properties; exec bash"
 
 git clone "$URL2" "$TARGET_DIR/ADB2023-tim-4"
 
